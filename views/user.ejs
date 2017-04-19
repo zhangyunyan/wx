@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            margin: 30px auto;
+        }
+
+        table, td {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <table>
+        <tr>
+            <td>呢称</td>
+            <td><%= user.nickname %></td>
+        </tr>
+        <tr>
+            <td>头像</td>
+            <td><img src="<%= user.headimgurl %>"></td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td><%= user.sex==0?'女':'男' %></td>
+        </tr>
+        <tr>
+            <td>省</td>
+            <td><%= user.province %></td>
+        </tr>
+        <tr>
+            <td>市</td>
+            <td><%= user.city %></td>
+        </tr>
+    </table>
+
+    <p>
+        <button style="font-size:50px" href="#" onclick="share()">分享</button>
+    </p>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: false,
+            appId: 'wx66e03833e73ef862',
+            timestamp: Date.now(),
+            nonceStr: 'IGV9X4WyN9eCO5p9',
+            signature: '635b522121687b5327256b143f2469791123ad83',
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone',
+                'hideMenuItems',
+                'showMenuItems',
+                'hideAllNonBaseMenuItem',
+                'showAllNonBaseMenuItem',
+                'translateVoice',
+                'startRecord',
+                'stopRecord',
+                'onVoiceRecordEnd',
+                'playVoice',
+                'onVoicePlayEnd',
+                'pauseVoice',
+                'stopVoice',
+                'uploadVoice',
+                'downloadVoice',
+                'chooseImage',
+                'previewImage',
+                'uploadImage',
+                'downloadImage',
+                'getNetworkType',
+                'openLocation',
+                'getLocation',
+                'hideOptionMenu',
+                'showOptionMenu',
+                'closeWindow',
+                'scanQRCode',
+                'chooseWXPay',
+                'openProductSpecificView',
+                'addCard',
+                'chooseCard',
+                'openCard'
+            ]
+        });
+        wx.ready(function () {
+
+        });
+        wx.error(function (res) {
+
+        });
+        function share() {
+            wx.onMenuShareTimeline({
+                title: '互联网之子',
+                link: 'http://movie.douban.com/subject/25785114/',
+                imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
+                trigger: function (res) {
+                    // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+                    alert('用户点击分享到朋友圈');
+                },
+                success: function (res) {
+                    alert('已分享');
+                },
+                cancel: function (res) {
+                    alert('已取消');
+                },
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+        }
+    </script>
+</div>
+</body>
+</html>
